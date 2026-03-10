@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HTML to PDF</title>
+   <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/Fevicon.png">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI';
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#fff5f5,#ffeaea);
+padding-top:70px;
+}
+
+/* NAVBAR */
+
+.navbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:78px;
+background:white;
+display:flex;
+align-items:center;
+padding:0 40px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo img{
+height:80px;
+}
+
+/* CARD */
+
+.container{
+width:100%;
+max-width:500px;
+}
+
+.card{
+background:rgba(219,180,203,0.9);
+padding:90px 60px;
+border-radius:20px;
+box-shadow:0 20px 40px rgba(0,0,0,0.2);
+text-align:center;
+color:white;
+}
+
+.card h2{
+margin-bottom:25px;
+font-size:26px;
+}
+
+input[type=file]{
+width:100%;
+padding:18px;
+border:none;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+button{
+width:45%;
+padding:14px;
+border:none;
+border-radius:10px;
+background:linear-gradient(90deg,#667eea,#764ba2);
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+/* POPUP */
+
+.popupOverlay{
+position:fixed;
+top:30px;
+right:20px;
+display:none;
+z-index:2000;
+}
+
+.popupBox{
+background:white;
+padding:25px;
+border-radius:15px;
+box-shadow:0 15px 30px rgba(0,0,0,0.2);
+text-align:center;
+width:350px;
+}
+
+.popupFile{
+background:#f3f3f3;
+padding:10px;
+margin-bottom:20px;
+border-radius:8px;
+}
+
+.downloadBtn{
+padding:12px 20px;
+background:linear-gradient(90deg,#4facfe,#00f2fe);
+color:white;
+border-radius:8px;
+text-decoration:none;
+}
+
+.closeBtn{
+position:absolute;
+right:20px;
+top:10px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+<div class="logo">
+<a href="index.html">
+<img src="icons/Final_logo.png">
+</a>
+</div>
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>HTML to PDF Converter</h2>
+
+<input type="file" id="fileInput" accept=".html">
+
+<button onclick="convertFile()">Convert</button>
+
+</div>
+</div>
+
+<div class="popupOverlay" id="popup">
+<div class="popupBox">
+<span class="closeBtn" onclick="closePopup()">×</span>
+
+<h3>Ready to Download</h3>
+
+<div class="popupFile" id="fileName">converted.pdf</div>
+
+<a id="downloadBtn" class="downloadBtn" download>
+Download File
+</a>
+
+</div>
+</div>
+
+<script>
+
+async function convertFile(){
+
+const fileInput=document.getElementById("fileInput");
+
+if(fileInput.files.length===0){
+alert("Select HTML file");
+return;
+}
+
+const formData=new FormData();
+formData.append("file",fileInput.files[0]);
+
+const response=await fetch("http://localhost:3000/convert/html-to-pdf",{
+method:"POST",
+body:formData
+});
+
+const data=await response.json();
+
+if(data.downloadUrl){
+
+document.getElementById("popup").style.display="flex";
+
+document.getElementById("downloadBtn").href=
+"http://localhost:3000"+data.downloadUrl;
+
+document.getElementById("fileName").innerText="converted.pdf";
+
+}else{
+
+alert("Conversion failed");
+
+}
+
+}
+
+function closePopup(){
+document.getElementById("popup").style.display="none";
+}
+
+</script>
+
+</body>
+</html>

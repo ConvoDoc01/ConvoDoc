@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PDF to PPT Converter</title>
+     <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/Fevicon.png">
+  <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 70px;
+  background: linear-gradient(135deg, #fff5f5, #ffeaea);
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 75px;
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo img {
+    height: 80px;   /* size control */
+    width: auto;
+
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+}
+
+.card {
+  background: rgba(219, 180, 203, 0.905);
+  padding: 100px 60px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  color: white;
+}
+
+.card h2 {
+  margin-bottom: 25px;
+  font-size: 26px;
+
+}
+
+input[type="file"] {
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+button {
+  width: 45%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg,#667eea,#764ba2);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* POPUP */
+/* ===== DOWNLOAD POPUP ===== */
+
+.popupOverlay {
+  position: fixed;
+  top: 30px;
+  right: 20px;
+  width: auto;
+  height: auto;
+  background: transparent;
+  display: none;
+  justify-content: flex-end;
+  align-items: flex-start;
+  z-index: 2000;
+}
+
+.popupBox {
+  background: white;
+  width: 350px;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  text-align: center;
+  position: relative;
+}
+
+.popupBox h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.popupFile {
+  background: #f3f3f3;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.downloadBtn {
+  display: inline-block;
+  padding: 12px 20px;
+  background: linear-gradient(90deg,#4facfe,#00f2fe);
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #999;
+}
+
+  </style>
+</head>
+
+<body>
+
+<header class="navbar">
+  <div class="logo">
+    <a href="index.html"><img src="icons/Final_logo.png"></a>
+  </div>
+</header>
+
+<div class="container">
+  <div class="card">
+    <h2>Convert PDF to PPT</h2>
+
+    <form id="uploadForm">
+      <input type="file" id="fileInput" accept=".pdf" required />
+      <button type="submit">Convert to PPT</button>
+    </form>
+  </div>
+</div>
+
+<div class="popupOverlay" id="popup">
+  <div class="popupBox">
+    <span class="closeBtn" onclick="closePopup()">×</span>
+    <h3>Ready to Download</h3>
+    <div class="popupFile" id="fileName">file.pptx</div>
+    <a id="downloadBtn" class="downloadBtn" download>Download PPT</a>
+  </div>
+</div>
+
+
+<script>
+document.getElementById("uploadForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const file = document.getElementById("fileInput").files[0];
+  if (!file) return alert("Select PDF file");
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetch("http://localhost:3000/convert/pdf-to-ppt", {
+    method: "POST",
+    body: formData
+  });
+
+  const data = await response.json();
+
+  if (data.downloadUrl) {
+  document.getElementById("popup").style.display = "flex";
+  document.getElementById("fileName").innerText =
+    file.name.replace(".pdf", ".pptx");
+
+  document.getElementById("downloadBtn").href =
+    "http://localhost:3000" + data.downloadUrl;
+
+}else {
+    alert("Conversion Failed");
+  }
+});
+
+function closePopup(){
+  document.getElementById("popup").style.display = "none";
+}
+
+</script>
+
+</body>
+</html>

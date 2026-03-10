@@ -1,0 +1,9 @@
+<svg width="28" height="28" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main PDF -->
+  <rect x="4" y="4" width="32" height="32" rx="6" fill="#C62828"></rect>
+  <text x="20" y="23" text-anchor="middle" fill="white" font-size="12" font-weight="bold">PDF</text>
+
+  <!-- Target Excel -->
+  <rect x="26" y="26" width="16" height="16" rx="4" fill="#217346"></rect>
+  <text x="34" y="37" text-anchor="middle" fill="white" font-size="10" font-weight="bold">X</text>
+</svg>

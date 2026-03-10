@@ -1,0 +1,35 @@
+<svg width="24" height="24" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <linearGradient id="orangeGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF7A00"></stop>
+      <stop offset="100%" stop-color="#FFA726"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="200" height="200" rx="30" fill="url(#orangeGrad)"></rect>
+
+  <!-- Thin Circular White Line -->
+  <circle cx="100" cy="100" r="70" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" stroke-dasharray="420" stroke-dashoffset="105"></circle>
+
+  <!-- Arrow -->
+  <g transform="rotate(90 100 30)">
+    <polygon points="100,30 115,50 85,50" fill="white"></polygon>
+  </g>
+
+  <!-- PDF Document Outline -->
+  <rect x="75" y="55" width="50" height="70" rx="8" fill="none" stroke="white" stroke-width="8"></rect>
+
+  <!-- Fold -->
+  <polygon points="110,55 125,70 110,70" fill="white"></polygon>
+
+  <!-- Smaller PDF Text -->
+  <text x="100" y="98" text-anchor="middle" font-size="18" font-family="Arial" font-weight="bold" fill="white">
+    PDF
+  </text>
+
+  <!-- Line under PDF -->
+  <line x1="90" y1="110" x2="110" y2="110" stroke="white" stroke-width="5" stroke-linecap="round"></line>
+
+</svg>

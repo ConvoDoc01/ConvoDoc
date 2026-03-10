@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Scan Document</title>
+   <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/Fevicon.png">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding-top:70px;
+background:linear-gradient(135deg,#fff5f5,#ffeaea);
+}
+
+/* NAVBAR */
+.navbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:78px;
+background:white;
+display:flex;
+align-items:center;
+padding:0 40px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo img{
+height:70px;
+}
+
+/* CARD */
+.container{
+width:100%;
+max-width:500px;
+}
+
+.card{
+background:rgba(219,180,203,0.905);
+padding:50px 40px;
+border-radius:20px;
+box-shadow:0 20px 40px rgba(0,0,0,0.2);
+text-align:center;
+color:white;
+}
+
+.card h2{
+margin-bottom:25px;
+font-size:26px;
+}
+
+button {
+  width: 45%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg,#667eea,#764ba2);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover{
+background:#ffe3ec;
+transform:scale(1.05);
+}
+
+/* CAMERA */
+.camera-container{
+display:none;
+margin-top:20px;
+}
+
+#cameraPreview{
+width:100%;
+border-radius:15px;
+background:black;
+}
+
+/* PREVIEW */
+#previewContainer{
+display:none;
+margin-top:20px;
+}
+
+#previewImage{
+width:100%;
+border-radius:15px;
+border:2px solid white;
+}
+
+/* POPUP */
+/* ===== DOWNLOAD POPUP ===== */
+
+.popupOverlay {
+  position: fixed;
+  top: 30px;
+  right: 20px;
+  width: auto;
+  height: auto;
+  background: transparent;
+  display: none;
+  justify-content: flex-end;
+  align-items: flex-start;
+  z-index: 2000;
+}
+
+.popupBox {
+  background: white;
+  width: 350px;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  text-align: center;
+  position: relative;
+}
+
+.popupBox h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.popupFile {
+  background: #f3f3f3;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.downloadBtn {
+  display: inline-block;
+  padding: 12px 20px;
+  background: linear-gradient(90deg,#4facfe,#00f2fe);
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #999;
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+<div class="logo">
+<a href="index.html"><img src="icons/Final_logo.png"></a>
+</div>
+</header>
+
+<div class="container">
+<div class="card">
+
+<h2>Scan Document</h2>
+
+<!-- STEP 1 BUTTON -->
+<button  id="scanBtn"onclick="startCamera()">Scan</button>
+
+<!-- CAMERA -->
+<div class="camera-container" id="cameraContainer">
+<video id="cameraPreview" autoplay></video>
+<button onclick="capturePhoto()">Capture</button>
+<button onclick="stopCamera()">Close</button>
+</div>
+
+<!-- PREVIEW -->
+<div id="previewContainer">
+<img id="previewImage">
+<button onclick="convertToPDF()">Convert to PDF</button>
+<button onclick="retake()">Retake</button>
+</div>
+
+</div>
+</div>
+
+<!-- DOWNLOAD POPUP -->
+<div class="popupOverlay" id="popup">
+  <div class="popupBox">
+    <span class="closeBtn" onclick="closePopup()">×</span>
+    <h3>Ready to Download</h3>
+    <div class="popupFile" id="fileName">scanned-document.pdf</div>
+    <a id="downloadBtn" class="downloadBtn">Download File</a>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+
+let stream=null;
+let imageBlob=null;
+
+async function startCamera(){
+try{
+stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});
+document.getElementById('cameraPreview').srcObject=stream;
+document.getElementById('cameraContainer').style.display='block';
+
+// Hide Scan button
+document.getElementById('scanBtn').style.display='none';
+
+}catch(err){
+alert("Camera permission denied");
+}
+}
+
+function stopCamera(){
+if(stream){
+stream.getTracks().forEach(track=>track.stop());
+}
+document.getElementById('cameraContainer').style.display='none';
+
+}
+
+function capturePhoto(){
+const video=document.getElementById('cameraPreview');
+const canvas=document.createElement('canvas');
+canvas.width=video.videoWidth;
+canvas.height=video.videoHeight;
+canvas.getContext('2d').drawImage(video,0,0);
+
+canvas.toBlob(blob=>{
+imageBlob=blob;
+const url=URL.createObjectURL(blob);
+document.getElementById('previewImage').src=url;
+document.getElementById('previewContainer').style.display='block';
+stopCamera();
+},'image/jpeg',0.95);
+}
+
+function retake(){
+document.getElementById('previewContainer').style.display='none';
+startCamera();
+}
+
+async function convertToPDF(){
+
+if(!imageBlob){
+alert("Capture image first");
+return;
+}
+
+const {jsPDF}=window.jspdf;
+const imgUrl=URL.createObjectURL(imageBlob);
+const img=new Image();
+
+img.src=imgUrl;
+
+img.onload = function(){
+
+const margin = 20; // border size (increase/decrease kar sakte ho)
+
+const pdfWidth = img.width + margin * 2;
+const pdfHeight = img.height + margin * 2;
+
+const orientation = img.width > img.height ? 'landscape' : 'portrait';
+
+const pdf = new jsPDF({
+  orientation: orientation,
+  unit: 'px',
+  format: [pdfWidth, pdfHeight]
+});
+
+// white background
+pdf.setFillColor(255, 255, 255);
+pdf.rect(0, 0, pdfWidth, pdfHeight, 'F');
+
+// image margin ke andar add karo
+pdf.addImage(img, 'JPEG', margin, margin, img.width, img.height);
+
+const filename = "scanned-document.pdf";
+
+document.getElementById("popup").style.display="flex";
+document.getElementById("fileName").innerText=filename;
+
+// 🔥 Force Download Instead of Open
+const blob = pdf.output('blob');
+const blobUrl = URL.createObjectURL(blob);
+
+const downloadBtn = document.getElementById("downloadBtn");
+downloadBtn.href = blobUrl;
+downloadBtn.download = filename;   // ✅ Important line
+
+};
+
+}
+function closePopup(){
+  document.getElementById("popup").style.display = "none";
+}
+
+</script>
+
+</body>
+</html>

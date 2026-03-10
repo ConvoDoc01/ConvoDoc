@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Crop PDF</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+   <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/Fevicon.png">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;}
+body{
+    height:100vh;display:flex;justify-content:center;align-items:center;padding-top:70px;background:linear-gradient(135deg,#fff5f5,#ffeaea);}
+.container{
+    width:100%;max-width:700px;padding:20px;}
+.navbar{
+    position:fixed;top:0;left:0;width:100%;height:78px;background:white;display:flex;justify-content:space-between;align-items:center;padding:0 40px;box-shadow:0 2px 10px rgba(0,0,0,0.1);z-index:1000;}
+.logo img{
+    height:80px;}
+.card{
+    background:rgba(219,180,203,0.905);padding:40px;border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,0.2);text-align:center;color:white;}
+.card h2{
+    margin-bottom:20px;}
+button{
+    padding:12px 20px;border:none;border-radius:10px;background:linear-gradient(90deg,#667eea,#764ba2);color:white;font-weight:bold;cursor:pointer;}
+#preview{
+    margin-top:20px;display:none;}
+canvas{
+    max-width:100%;margin-top:20px;border-radius:10px;}
+.popupOverlay{
+    position:fixed;top:30px;right:20px;display:none;z-index:2000;}
+.popupBox{
+    background:white;width:350px;padding:25px;border-radius:15px;box-shadow:0 15px 30px rgba(0,0,0,0.2);text-align:center;position:relative;}
+.downloadBtn{
+    display:inline-block;padding:12px 20px;background:linear-gradient(90deg,#4facfe,#00f2fe);color:white;border-radius:8px;text-decoration:none;font-weight:bold;}
+.closeBtn{
+    position:absolute;top:10px;right:15px;cursor:pointer;font-size:18px;}
+#pdfImage{
+max-width:100%;
+max-height:350px;
+object-fit:contain;
+border-radius:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+<div class="logo">
+<a href="index.html"><img src="icons/Final_logo.png"></a>
+</div>
+</header>
+
+<div class="container">
+<div class="card">
+<h2>Crop PDF</h2>
+
+<form id="uploadForm">
+<input type="file" id="fileInput" accept=".pdf" required>
+<br><br>
+<button type="submit" id="uploadBtn">Upload</button>
+</form>
+
+<div id="preview">
+<img id="pdfImage" style="max-width:100%; border-radius:10px;">
+<br><br>
+<button onclick="cropPDF()">Crop PDF</button>
+</div>
+</div>
+</div>
+
+<div class="popupOverlay" id="popup">
+<div class="popupBox">
+<span class="closeBtn" onclick="closePopup()">×</span>
+<h3>Ready to Download</h3>
+<div id="fileName">cropped.pdf</div>
+<br>
+<a id="downloadBtn" class="downloadBtn" download>Download File</a>
+</div>
+</div>
+
+<script>
+let pdfDoc = null;
+let cropper = null;
+let fileData = null;
+
+document.getElementById("uploadForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    const file = document.getElementById("fileInput").files[0];
+    fileData = file;
+
+    const reader = new FileReader();
+    reader.onload = function() {
+        const typedarray = new Uint8Array(this.result);
+
+        pdfjsLib.getDocument(typedarray).promise.then(function(pdf){
+            pdfDoc = pdf;
+            pdf.getPage(1).then(function(page){
+                const viewport = page.getViewport({scale: 1}); // scale = 1 to match PDF points
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                page.render({canvasContext: ctx, viewport: viewport}).promise.then(() => {
+                    const img = document.getElementById("pdfImage");
+                    img.src = canvas.toDataURL("image/png");
+
+                    if(cropper) cropper.destroy();
+
+                    cropper = new Cropper(img, {
+                        viewMode: 1,
+                        zoomable: false, // zoom disabled
+                        scalable: false,
+                        movable: true,
+                        aspectRatio: NaN, // free crop
+                    });
+
+                    document.getElementById("preview").style.display = "block";
+
+                    // hide upload controls
+                    document.getElementById("fileInput").style.display = "none";
+                    document.getElementById("uploadBtn").style.display = "none";
+
+                });
+            });
+        });
+    };
+    reader.readAsArrayBuffer(file);
+});
+
+async function cropPDF() {
+    const cropData = cropper.getData(true); // get real pixels relative to image
+    const formData = new FormData();
+
+    formData.append("file", fileData);
+    formData.append("x", cropData.x);
+    formData.append("y", cropData.y);
+    formData.append("width", cropData.width);
+    formData.append("height", cropData.height);
+
+    const response = await fetch("http://localhost:3000/convert/crop-pdf", {
+        method: "POST",
+        body: formData
+    });
+
+    const data = await response.json();
+
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("downloadBtn").href = "http://localhost:3000" + data.downloadUrl;
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+</script>
+
+</body>
+</html>

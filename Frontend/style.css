@@ -1,0 +1,407 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+}
+
+
+/* ================= NAVBAR ================= */
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 15px 60px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Logo */
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+.logo img {
+    height: 80px;   /* size control */
+    width: auto;
+
+}
+
+
+/* Nav Links */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 50px;          /* ✅ Equal spacing between all options */
+    margin-left: 200px;
+    
+}
+
+.nav-links a,
+.mega-btn {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.3s;
+    font-size: 18px;   /* size increase */
+    font-weight: bold; /* bold text */
+
+}
+.nav-links a:hover,
+.mega-btn:hover {
+    color: #e63946;
+}
+/* Sirf Convert PDF ke baad ka gap kam karo */
+/*.nav-links .mega-dropdown:first-of-type {
+    margin-right: -50px;
+}*/
+
+/* ================= MEGA MENU ================= */
+
+.mega-dropdown {
+    position: relative;
+}
+
+.mega-menu {
+    position: absolute;
+    left: -550px;
+    background: #ffffff;
+    padding: 40px 80px;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    display: none;
+    justify-content: flex-start;
+    z-index: 1000;
+}
+.convert-menu {
+    width: 500px;
+    left: -200px;
+
+}
+/* Tools */
+.tools {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 40px 60px;
+}
+
+.tools-menu {
+    width: 650px;
+    gap: 40px;   
+
+}
+.tools-icon {
+    width: 60px;
+    height: 60px;
+}
+
+
+.mega-dropdown:hover .mega-menu {
+    display: flex;
+}
+
+.mega-column {
+    width: auto;
+    min-width: 180px;
+}
+
+.mega-column a {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 15px;
+    text-decoration: none;
+    color: black;
+}
+
+.mega-column a {
+    display: block;
+    margin-bottom: 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    gap: 12px;
+    align-items: center;
+}
+
+.mega-column a:hover {
+    color: #e63946;
+}
+/* Columns */
+.mega-column {
+    width: 40%;
+}
+
+.mega-column h4 {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #888;
+    text-transform: uppercase;
+}
+
+/* Links */
+
+
+.mega-column strong {
+    display: block;
+    font-size: 15px;
+}
+
+.mega-column span {
+    font-size: 12px;
+    color: #777;
+}
+
+.mega-column a:hover strong {
+    color: #e63946;
+}
+
+
+/* ================= AUTH SECTION (Optional Right Side) ================= */
+
+.auth {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.auth a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.auth button {
+    padding: 6px 14px;
+    border: none;
+    background: #e63946;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.auth button:hover {
+    opacity: 0.9;
+}
+
+
+/* Hero */
+.hero {
+    padding: 120px 20px 80px;
+    text-align: center;
+    background: linear-gradient(135deg, #fff5f5, #ffeaea);
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 15px;
+    background: linear-gradient(90deg, #e63946, #ff6b6b);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.filters button {
+    padding: 10px 18px;
+    margin: 6px;
+    border-radius: 30px;
+    border: none;
+    background: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.filters .active,
+.filters button:hover {
+    background: linear-gradient(90deg, #e63946, #ff6b6b);
+    color: white;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: 0.35s ease;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+
+.card h3 {
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.card p {
+    color: #666;
+    font-size: 14px;
+}
+
+.tool-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.mega-column a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+/* ABOUT SECTION */
+
+.about-section{
+background:#f5f7fb;
+padding:80px 20px;
+text-align:center;
+margin-top: 15%;
+}
+
+.about-container{
+max-width:1200px;
+margin:auto;
+}
+
+.about-section h2{
+font-size:34px;
+margin-bottom:20px;
+color: #e63946;
+}
+
+.about-section p{
+font-size:20px;
+color:#555;
+line-height:1.9;
+text-align: justify;
+}
+
+ 
+/* Contact section*/
+.contact-section{
+padding:80px 20px;
+background:#f3d7d8;
+text-align:center;
+}
+.contact-section h2{
+    color: #e63946;
+}
+
+.contact-social{
+margin-top:25px;
+}
+
+.contact-social a{
+margin:0 15px;
+font-size:18px;
+text-decoration:none;
+color:#333;
+font-weight:500;
+}
+
+.contact-social i{
+margin-right:8px;
+font-size:20px;
+}
+
+.contact-social a:hover{
+color:#ff4d4d;
+}
+
+/* Hamburger Icon */
+
+.menu-icon{
+width:30px;
+cursor:pointer;
+margin-left:auto;
+position:relative;
+}
+
+.menu-icon span{
+display:block;
+height:3px;
+background:#333;
+margin:6px 0;
+border-radius:2px;
+}
+
+/* Dropdown */
+
+.menu-dropdown{
+position:absolute;
+right: 10px;;
+top:35px;
+background:white;
+border-radius:8px;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+display:none;
+flex-direction:column;
+min-width:200px;
+padding:10px 0;
+}
+
+.menu-dropdown a{
+padding:10px 18px;
+text-decoration:none;
+color:#333;
+font-size:20px;
+font-weight:600;     /* bold text */
+display:block;
+}
+
+.menu-dropdown a:hover{
+background:#f5f5f5;
+color:#e63946;
+}
+
+/* Hover par show */
+
+.menu-icon:hover .menu-dropdown{
+display:flex;
+}
+/* ABOUT IMAGE */
+
+.about-img{
+    width: 50%;
+    max-width: 650px;   /* image ki max width */
+    height: auto;
+    display: block;
+    margin: 30px auto;  /* center me lane ke liye */
+
+    border-radius: 20px; /* smooth rounded corners */
+
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15); /* soft shadow */
+
+    transition: 0.4s ease;
+}
+
+/* hover effect */
+
+.about-img:hover{
+    transform: scale(1.03);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}

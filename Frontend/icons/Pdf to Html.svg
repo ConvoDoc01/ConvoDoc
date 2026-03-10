@@ -1,0 +1,16 @@
+<svg width="28" height="28" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Main PDF Box -->
+  <rect x="4" y="4" width="32" height="32" rx="6" fill="#C62828"></rect>
+  <text x="20" y="22" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="Arial">
+        PDF
+  </text>
+
+  <!-- Bigger HTML Badge -->
+  <rect x="24" y="24" width="20" height="20" rx="5" fill="#F57C00"></rect>
+
+  <text x="34" y="36" text-anchor="middle" fill="white" font-size="7" font-weight="bold" font-family="Arial" dominant-baseline="middle">
+        HTML
+  </text>
+
+</svg>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>PDF Tools Website</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+       <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/Fevicon.png">
+
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <div class="logo">
+           <a href="index.html"><img src="icons/Final_logo.png" alt="PDF Tools Logo"></a>
+        </div>
+        
+    <nav class="nav-links">
+    <a href="merge.html">MERGE PDF</a>
+    <a href="Split.html">SPLIT PDF</a>
+    <a href="Scan.html">SCAN PDF</a>
+
+    <div class="mega-dropdown">
+        <a href="#" class="mega-btn">CONVERT PDF ▾</a>
+
+        <div class="mega-menu convert-menu">
+
+            <div class="mega-column">
+                <h4>CONVERT TO PDF</h4>
+                <a href="Jpg-to-Pdf.html">
+                    <img src="icons/Jpg to Pdf.svg"></img>JPG to PDF</a>
+                <a href="Word-to-Pdf.html">
+                    <img src="icons/Word to Pdf.svg"></img>WORD to PDF</a>
+                <a href="Excel-to-Pdf.html">
+                    <img src="icons/Excel to Pdf.svg"></img>EXCEL to PDF</a>
+                
+                <a href="Ppt-to-Pdf.html">
+                    <img src="icons/Powerpoint to Pdf.svg"></img>PPT to PDF</a>
+                
+                </a>
+                <a href="Html-to-Pdf.html">
+                    <img src="icons/Html to Pdf.svg"></img>HTML to PDF</a>
+                
+            </div>
+
+            <div class="mega-column">
+                <h4>CONVERT FROM PDF</h4>
+                <a href="Pdf-to-Jpg.html">
+                    <img src="icons/Pdf to jpg.svg"></img>PDF to JPG</a>
+                    
+                </a>
+                <a href="Pdf-to-Word.html">
+                    <img src="icons/Pdf to Word.svg"></img>PDF to Word</a>
+        
+                </a>
+                <a href="Pdf-to-Excel.html">
+                    <img src="icons/Pdf to Excel.svg"></img>PDF to Excel</a>
+                </a>
+                <a href="Pdf-to-Ppt.html">
+                    <img src="icons/Pdf to Powerpoint.svg"></img>PDF to PPT</a>
+                </a>
+                <a href="Pdf-to-Html.html">
+                    <img src="icons/Pdf to Html.svg"></img>PDF to HTML</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="mega-dropdown">
+
+        <a href="#" class="mega-btn">ALL PDF TOOLS ▾</a>
+        <div class="mega-menu">
+
+            <div class="mega-column tools-menu">
+                <h4>ORGANIZE PDF</h4>
+                <a href="merge.html"><img src="icons/Merge.svg" width="28px"></img>Merge PDF</a>
+                <a href="Split.html"><img src="icons/Split.svg"></img>Split PDF</a>
+                <a href="Scan.html"><img src="icons/Scan.svg"></img>Scan to PDF</a>
+            </div>
+
+            <div class="mega-column">
+                <h4>CONVERT TO PDF</h4>
+                <a href="Jpg-to-Pdf.html"><img src="icons/Jpg to Pdf.svg"></img>JPG to PDF</a>
+                <a href="Word-to-Pdf.html"><img src="icons/Word to Pdf.svg"></img>WORD to PDF</a>
+                <a href="Ppt-to-Pdf.html"><img src="icons/Powerpoint to Pdf.svg"></img>PPT to PDF</a>
+                <a href="Excel-to-Pdf.html"><img src="icons/Excel to Pdf.svg"></img>EXCEL to PDF</a>
+                <a href="Html-to-Pdf.html"><img src="icons/Html to Pdf.svg"></img>HTML to PDF</a>
+            </div>
+
+            <div class="mega-column">
+                <h4>CONVERT FROM PDF</h4>
+                <a href="Pdf-to-Jpg.html"><img src="icons/Pdf to jpg.svg"></img>PDF to JPG</a>
+                <a href="Pdf-to-Word.html"><img src="icons/Pdf to Word.svg"></img>PDF to WORD</a>
+                <a href="Pdf-to-Ppt.html"><img src="icons/Pdf to Powerpoint.svg"></img>PDF to PPT</a>
+                <a href="Pdf-to-Excel.html"><img src="icons/Pdf to Excel.svg"></img>PDF to EXCEL</a>
+                <a href="Pdf-to-Html.html"><img src="icons/Pdf to Html.svg"></img>PDF to HTML</a>
+            </div>
+
+            <div class="mega-column">
+                <h4>EDIT PDF</h4>
+                <a href="Rotate.html"><img src="icons/Rotate.svg"></img>Rotate PDF</a>
+                <a href="Watermark.html"><img src="icons/Watermark.svg"></img>Watermark PDF</a>
+                <a href="Crop.html"><img src="icons/Crop.svg"></img>Crop PDF</a>
+            </div>
+
+            <div class="mega-column">
+                <h4>PDF SECURITY</h4>
+                <a href="Protect.html"><img src="icons/Protect.svg"></img>Protect PDF</a>
+                <a href="Unlock.html"><img src="icons/Unlock.svg"></img>Unlock PDF</a>
+            </div>
+    </div>
+</nav>
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+
+            <div class="menu-dropdown">
+
+            <a href="#Tools">Tools</a>
+            <a href="#about">About ConvoDoc</a>
+            <a href="#contact">Connect With Us</a>
+            
+
+
+                </div>
+        </div>
+        
+    </header>
+    
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>All the PDF tools you need in one powerful platform</h1>
+        <p>Convert, merge, split and manage your documents quickly and securely.</p>
+
+        <div class="filters">
+
+<button onclick="filterSelection('all')">All</button>
+
+<button onclick="filterSelection('organize')">
+Organize PDF
+</button>
+
+<button onclick="filterSelection('convert')">
+Convert PDF
+</button>
+
+<button onclick="filterSelection('edit')">
+Edit PDF
+</button>
+
+<button onclick="filterSelection('security')">
+PDF Security
+</button>
+
+</div>
+    </section>
+
+    <!-- Tools Section -->
+    <section id="Tools" class="tools">
+
+          <div class="card" id="mergePdfCard" data-category="organize">
+            <img src="icons/Merge.svg" class="tools-icon"></img>
+            <h3>Merge PDF</h3>
+            <p>Combine multiple PDF files into one single PDF document.</p>
+        </div>
+
+          <div class="card" id="splitPdfCard" data-category="organize">
+            <img src="icons/Split.svg" class="tools-icon"></img>
+            <h3>Split PDF</h3>
+            <p>Seprate one page or a whole set for easy conversation into independent PDF files</p>
+        </div>
+
+         <div class="card" id="scanPdfCard" data-category="organize">
+            <img src="icons/Scan.svg" class="tools-icon"></img>
+            <h3>Scan to PDF</h3>
+            <p>Convert scanned images into editable PDF files.</p>
+        </div>
+
+        <div class="card" id="Pdf-to-WordCard" data-category="convert">
+            <img src="icons/Pdf to Word.svg" class="tools-icon"></img>
+            <h3>PDF to Word</h3>
+            <p>Convert your PDF files into editable Word documents.</p>
+        </div>
+
+        <div class="card" id="Pdf-to-PPTCard" data-category="convert">                  <!--PDF TO POWERPOINT-->
+            <img src="icons/Pdf to Powerpoint.svg" class="tools-icon"></img>
+            <h3>PDF to PPT</h3> 
+            <p>Turn your PDFs into easy-to-edit PPT slides.</p>
+        </div>
+
+         <div class="card" id="PPT-to-PdfCard" data-category="convert">
+            <img src="icons/Powerpoint to Pdf.svg" class="tools-icon"></img>
+            <h3>PPT to PDF</h3>
+            <p>Convert your PowerPoint presentations to PDF format.</p>
+        </div>
+
+        <div class="card" id="Pdf-to-ExcelCard" data-category="convert">
+            <img src="icons/Pdf to Excel.svg" class="tools-icon"></img>
+            <h3>PDF to Excel</h3>
+            <p>Extract data from PDF to Excel spreadsheets.</p>
+        </div>
+
+        <div class="card" id="Word-to-PdfCard" data-category="convert">
+            <img src="icons/Word to Pdf.svg" class="tools-icon"></img>
+            <h3>Word to PDF</h3>
+            <p>Convert DOC and DOCX files to PDF format.</p>
+        </div>
+
+        <div class="card" id="Excel-to-PdfCard" data-category="convert">
+            <img src="icons/Excel to Pdf.svg" class="tools-icon"></img>
+            <h3>Excel to PDF</h3>
+            <p>Convert Excel sheets into PDF files easily.</p>
+        </div>
+
+        <div class="card" id="Jpg-to-PdfCard" data-category="convert">
+            <img src="icons/Jpg to Pdf.svg" class="tools-icon"></img>
+            <h3>JPG to PDF</h3>
+            <p>Convert JPG images into PDF files in seconds.</p>
+        </div>
+
+          <div class="card" id="Pdf-to-JpgCard" data-category="convert">
+            <img src="icons/Pdf to jpg.svg" class="tools-icon"></img>
+            <h3>PDF to JPG</h3>
+            <p>Convert PDF pages into high-quality JPG images.</p>
+        </div>
+
+            <div class="card" id="Html-to-PdfCard" data-category="convert">
+            <img src="icons/Html to Pdf.svg" class="tools-icon"></img>
+            <h3>HTML to PDF</h3>
+            <p>Convert HTML documents into PDF files easily.</p>
+        </div>
+         <div class="card" id="Pdf-to-HtmlCard" data-category="convert">
+            <img src="icons/Pdf to Html.svg" class="tools-icon"></img>
+            <h3>PDF to HTML</h3>
+            <p>Convert PDF files into editable HTML documents.</p>
+        </div>
+
+          <div class="card" id="ZipCard" data-category="convert">
+            <img src="icons/zip.png" class="tools-icon"></img>
+            <h3>Zip File</h3>
+            <p>Compress multiple PDF files into a single ZIP archive.</p>
+        </div>
+
+          <div class="card" id="RotateCard" data-category="edit">
+            <img src="icons/Rotate.svg" class="tools-icon"></img>
+            <h3>RotatePDF</h3>
+            <p>Rotate your PDF the way you need them. You can even rotate multiple PDFs at once!</p>
+        </div>
+
+         <div class="card" id="WatermarkCard" data-category="edit">
+            <img src="icons/Watermark.svg" class="tools-icon"></img>
+            <h3>Watermark PDF</h3>
+            <p>Add custom watermarks to your PDF files for branding or security.</p>
+        </div>
+        
+          <div class="card" id="CropCard" data-category="edit">
+            <img src="icons/Crop.svg" class="tools-icon"></img>
+            <h3>Crop PDF</h3>
+            <p>Crop the edges of your PDF pages to remove unwanted areas.</p>
+        </div>
+
+        <div class="card" id="ProtectCard" data-category="security">
+            <img src="icons/Protect.svg" class="tools-icon"></img>
+            <h3>Protect PDF</h3>
+            <p>Secure your PDF files with password protection.</p>
+        </div>
+
+            <div class="card" id="UnlockCard" data-category="security">
+                <img src="icons/Unlock.svg" class="tools-icon"></img>
+                <h3>Unlock PDF</h3>
+                <p>Remove password protection from your PDF files.</p>
+            </div>
+
+    </section>
+
+<!-- ABOUT SECTION -->
+
+<section class="about-section">
+
+<div class="about-container">
+
+<h2>About ConvoDoc</h2>
+<img src="icons/about.png" class="about-img">
+
+<p class="about-text">
+ConvoDoc is a modern and reliable online platform designed to simplify the way you work with documents. It provides a complete set of powerful PDF tools that allow users to merge, split, scan, and convert files into multiple formats such as Word, Excel, PowerPoint, JPG, and more.
+
+Our goal is to make document management fast, secure, and accessible for everyone. Whether you are a student, professional, or business user, ConvoDoc helps you handle your files efficiently without installing any software. With a clean interface and easy-to-use tools, you can convert and manage your documents in just a few clicks.
+</p>
+
+</div>
+
+</section>
+
+    <section id="contact" class="contact-section">
+
+        <h2>Connect With Us</h2>
+
+    <div class="contact-social">
+
+        <a href="https://github.com/ConvoDoc01">
+        <i class="fab fa-github"></i> GitHub
+        </a>
+
+        <a href="https://www.linkedin.com/in/amit-varma-2593482a9/">
+        <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+
+        <a href="https://x.com/ConvoDoc01">
+        <i class="fa-brands fa-x-twitter"></i> Twitter
+        </a>
+
+        <a href="https://www.instagram.com/convodoc01?igsh=dHZuOTZoenF6d3lu">
+        <i class="fab fa-instagram"></i> Instagram
+        </a>
+
+        <a href="mailto:convodoc@gmail.com">
+        <i class="fas fa-envelope"></i> Email
+        </a>
+
+</div>
+
+</section>
+
+<script src="script.js"></script>
+
+</body>
+</html>

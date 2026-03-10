@@ -1,0 +1,20 @@
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- Orange background -->
+  <rect width="24" height="24" fill="#FF7F00"></rect>
+
+  <!-- Top-left corner -->
+  <line x1="3" y1="3" x2="9" y2="3" stroke="white" stroke-width="2" stroke-linecap="round"></line>
+  <line x1="3" y1="3" x2="3" y2="9" stroke="white" stroke-width="2" stroke-linecap="round"></line>
+
+  <!-- Top-right corner -->
+  <line x1="15" y1="3" x2="21" y2="3" stroke="white" stroke-width="2" stroke-linecap="round"></line>
+  <line x1="21" y1="3" x2="21" y2="9" stroke="white" stroke-width="2" stroke-linecap="round"></line>
+
+  <!-- Bottom-left corner -->
+  <line x1="3" y1="15" x2="3" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"></line>
+  <line x1="3" y1="21" x2="9" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"></line>
+
+  <!-- Bottom-right corner -->
+  <line x1="15" y1="21" x2="21" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"></line>
+  <line x1="21" y1="15" x2="21" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"></line>
+</svg>
