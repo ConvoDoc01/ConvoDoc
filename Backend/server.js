@@ -17,7 +17,7 @@ app.use('/uploads', express.static('uploads'));
 // GET / request will return index.html instead of "Cannot GET /" and users can
 // open http://localhost:3000 in a browser.
 // -----------------------------------------------------------------------------
-const frontendPath = path.join(__dirname, '..', 'Frontend');
+const frontendPath = path.join(__dirname, '..');
 app.use(express.static(frontendPath));
 
 // send index.html for any other non-API GET requests (spa fallback)
