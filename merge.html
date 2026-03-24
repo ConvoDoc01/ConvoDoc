@@ -196,6 +196,8 @@ button:hover {
 const fileInputsDiv = document.getElementById("fileInputs");
 const addMoreBtn = document.getElementById("addMoreBtn");
 
+const API_BASE = "http://localhost:3000";
+
 // Add more file inputs dynamically
 addMoreBtn.addEventListener("click", () => {
   const input = document.createElement("input");
@@ -221,31 +223,45 @@ document.getElementById("mergeForm").addEventListener("submit", async function(e
   });
 
   try {
-    const response = await fetch("http://localhost:3000/merge", {
+    const response = await fetch(`${API_BASE}/merge`, {
       method: "POST",
       body: formData
     });
 
-    const data = await response.json();
+    console.log("Response status:", response.status);
+
+    const text = await response.text();
+    console.log("Raw response:", text);
+
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (err) {
+      throw new Error("Invalid JSON response from server");
+    }
+
+    if (!response.ok) {
+      throw new Error(data.message || "Merge failed");
+    }
 
     if (data.downloadUrl) {
       document.getElementById("popup").style.display = "flex";
       document.getElementById("fileName").innerText = "merged.pdf";
-      document.getElementById("downloadBtn").href =
-        "http://localhost:3000" + data.downloadUrl;
+      document.getElementById("downloadBtn").href = API_BASE + data.downloadUrl;
     } else {
-      alert("Merge failed");
+      alert("Merge failed: No download URL received");
     }
 
   } catch (error) {
-    console.error(error);
-    alert("Merge failed");
+    console.error("Merge error:", error);
+    alert("Merge failed: " + error.message);
   }
 });
 
-function closePopup(){
+function closePopup() {
   document.getElementById("popup").style.display = "none";
 }
 </script>
+
 </body>
 </html>
