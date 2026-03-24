@@ -196,8 +196,6 @@ button:hover {
 const fileInputsDiv = document.getElementById("fileInputs");
 const addMoreBtn = document.getElementById("addMoreBtn");
 
-const API_BASE = "http://localhost:3000";
-
 // Add more file inputs dynamically
 addMoreBtn.addEventListener("click", () => {
   const input = document.createElement("input");
@@ -223,12 +221,10 @@ document.getElementById("mergeForm").addEventListener("submit", async function(e
   });
 
   try {
-    const response = await fetch(`${API_BASE}/merge`, {
+    const response = await fetch("/merge", {
       method: "POST",
       body: formData
     });
-
-    console.log("Response status:", response.status);
 
     const text = await response.text();
     console.log("Raw response:", text);
@@ -247,7 +243,7 @@ document.getElementById("mergeForm").addEventListener("submit", async function(e
     if (data.downloadUrl) {
       document.getElementById("popup").style.display = "flex";
       document.getElementById("fileName").innerText = "merged.pdf";
-      document.getElementById("downloadBtn").href = API_BASE + data.downloadUrl;
+      document.getElementById("downloadBtn").href = data.downloadUrl;
     } else {
       alert("Merge failed: No download URL received");
     }
